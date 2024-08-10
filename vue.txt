@@ -1,0 +1,477 @@
+
+
+createContact
+
+
+
+
+<template>
+  <div>
+    <h1>Create New Contact</h1>
+    <form @submit.prevent="createContact">
+      <label>
+        Name:
+        <input v-model="contact.name" required />
+      </label>
+      <label>
+        Phone:
+        <input v-model="contact.phone" required />
+      </label>
+      <label>
+        City:
+        <input v-model="contact.city" required />
+      </label>
+      <button type="submit">Create</button>
+      <router-link to="/">Cancel</router-link>
+    </form>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'ContactCreate',
+  data() {
+    return {
+      contact: {
+        name: '',
+        phone: '',
+        city: '',
+      },
+    };
+  },
+  methods: {
+    async createContact() {
+      await fetch('http://localhost:3000/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.contact),
+      });
+      this.$router.push('/');
+    },
+  },
+});
+</script>
+
+
+
+
+
+
+
+Contact Details
+
+
+
+
+
+
+<template>
+    <div>
+      <h1>Contact Details</h1>
+      <div v-if="contact">
+        <p>Name: {{ contact.name }}</p>
+        <p>Phone: {{ contact.phone }}</p>
+        <p>City: {{ contact.city }}</p>
+      </div>
+      <router-link to="/">Voltar a List</router-link>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent } from 'vue';
+  
+  export default defineComponent({
+    name: 'ContactDetails',
+    data() {
+      return {
+        contact: null,
+      };
+    },
+    methods: {
+      async fetchContact() {
+        const response = await fetch(`http://localhost:3000/contacts/${this.$route.params.id}`);
+        this.contact = await response.json();
+      },
+    },
+    created() {
+      this.fetchContact();
+    },
+  });
+  </script>
+
+
+
+
+
+Edit Contact
+
+
+
+
+
+<template>
+    <div>
+      <h1>Edit Contact</h1>
+      <form @submit.prevent="updateContact">
+        <label>
+          Name:
+          <input v-model="contact.name" required />
+        </label>
+        <label>
+          Phone:
+          <input v-model="contact.phone" required />
+        </label>
+        <label>
+          City:
+          <input v-model="contact.city" required />
+        </label>
+        <button type="submit">Save</button>
+        <router-link to="/">Cancel</router-link>
+      </form>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent } from 'vue';
+  
+  export default defineComponent({
+    name: 'ContactEdit',
+    data() {
+      return {
+        contact: {
+          name: '',
+          phone: '',
+          city: '',
+        },
+      };
+    },
+    methods: {
+      async fetchContact() {
+        const response = await fetch(`http://localhost:3000/contacts/${this.$route.params.id}`);
+        this.contact = await response.json();
+      },
+      async updateContact() {
+        await fetch(`http://localhost:3000/contacts/${this.$route.params.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.contact),
+        });
+        this.$router.push('/');
+      },
+    },
+    created() {
+      this.fetchContact();
+    },
+  });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Contact List
+
+
+
+
+
+<template>
+    <div>
+      <h1>Contact List</h1>
+      <ul>
+        <li v-for="contact in contacts" :key="contact.id">
+          <router-link :to="`/contact/${contact.id}`">{{ contact.name }}</router-link>
+          <button @click="editContact(contact.id)">Edit</button>
+          <button @click="deleteContact(contact.id)">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent } from 'vue';
+  
+  export default defineComponent({
+    name: 'ContactList',
+    data() {
+      return {
+        contacts: [],
+      };
+    },
+    methods: {
+      async fetchContacts() {
+        const response = await fetch('http://localhost:3000/contacts');
+        this.contacts = await response.json();
+      },
+      async deleteContact(id: number) {
+        await fetch(`http://localhost:3000/contacts/${id}`, {
+          method: 'DELETE',
+        });
+        this.fetchContacts();
+      },
+      editContact(id: number) {
+        this.$router.push(`/edit/${id}`);
+      },
+    },
+    created() {
+      this.fetchContacts();
+    },
+  });
+  </script>
+
+
+
+
+app.vue
+
+
+
+
+<template>
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/create">Create New Contact</router-link>
+    </nav>
+    <router-view />
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'App',
+};
+</script>
+
+<style>
+/* Estilos para a barra de navegação */
+nav {
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+nav a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #007bff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+APP.vue
+
+
+
+
+
+
+<template>
+  <div>
+    <nav class="navbar">
+      <router-link to="/" class="nav-link">Home</router-link>
+      <router-link to="/create" class="nav-link">Create New Contact</router-link>
+    </nav>
+    <router-view />
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'App',
+};
+</script>
+
+<style scoped>
+/* Estilos para a barra de navegação */
+.navbar {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #343a40;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #0056b3;
+}
+
+.nav-link.active {
+  background-color: #0056b3;
+}
+</style>
+
+
+
+
+
+
+
+
+
+createContact
+
+
+
+
+<template>
+  <div class="contact-create">
+    <h1>Create New Contact</h1>
+    <form @submit.prevent="createContact">
+      <label>
+        Name:
+        <input v-model="contact.name" required />
+      </label>
+      <label>
+        Phone:
+        <input v-model="contact.phone" required />
+      </label>
+      <label>
+        City:
+        <input v-model="contact.city" required />
+      </label>
+      <div class="buttons">
+        <button type="submit">Create</button>
+        <router-link to="/">Cancel</router-link>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'ContactCreate',
+  data() {
+    return {
+      contact: {
+        name: '',
+        phone: '',
+        city: '',
+      },
+    };
+  },
+  methods: {
+    async createContact() {
+      await fetch('http://localhost:3000/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.contact),
+      });
+      this.$router.push('/');
+    },
+  },
+});
+</script>
+
+<style scoped>
+.contact-create {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+router-link {
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #6c757d;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+router-link:hover {
+  background-color: #5a6268;
+}
+</style>
