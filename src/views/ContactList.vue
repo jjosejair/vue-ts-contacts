@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'ContactList',
   data() {
     return {
-      contacts: [] as Contact[], // Define explicitamente o tipo do array
+      contacts: [] as Contact[], 
     };
   },
   methods: {
