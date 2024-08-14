@@ -2,19 +2,20 @@
   <div class="contact-list">
     <h1>Lista de Contatos</h1>
     <ul>
-      <li v-for="contact in contacts" :key="contact.id" class="contact-item">
-        <router-link :to="`/contact/${contact.id}`" class="contact-link">{{ contact.name }}</router-link>
-        <div class="actions">
-          <button @click="editContact(contact.id)" class="edit-button">Edit</button>
-          <button @click="deleteContact(contact.id)" class="delete-button">Delete</button>
-        </div>
-      </li>
+      <ContactItem
+        v-for="contact in contacts"
+        :key="contact.id"
+        :contact="contact"
+        @edit="editContact"
+        @delete="deleteContact"
+      />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import ContactItem from '../components/ContactItem.vue';
 
 interface Contact {
   id: number;
@@ -23,9 +24,12 @@ interface Contact {
 
 export default defineComponent({
   name: 'ContactList',
+  components: {
+    ContactItem,
+  },
   data() {
     return {
-      contacts: [] as Contact[], // Define explicitamente o tipo do array
+      contacts: [] as Contact[],
     };
   },
   methods: {
@@ -57,67 +61,5 @@ export default defineComponent({
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.contact-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.contact-link {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-}
-
-.contact-link:hover {
-  text-decoration: underline;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-button {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.edit-button {
-  background-color: #28a745;
-  color: white;
-}
-
-.edit-button:hover {
-  background-color: #218838;
-}
-
-.delete-button {
-  background-color: #dc3545;
-  color: white;
-}
-
-.delete-button:hover {
-  background-color: #c82333;
 }
 </style>

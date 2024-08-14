@@ -49,22 +49,6 @@ export default defineComponent({
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.contact-info {
-  margin-bottom: 20px;
-}
-
-.contact-info p {
-  margin: 10px 0;
-  color: #555;
-  font-size: 16px;
-}
-
 .back-link {
   display: inline-block;
   padding: 10px 15px;
