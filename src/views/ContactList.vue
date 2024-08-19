@@ -16,11 +16,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactItem from '../components/ContactItem.vue';
-
-interface Contact {
-  id: number;
-  name: string;
-}
+import apiClient from '../axios';  
+import { Contact } from '../interfaces/Contact';
 
 export default defineComponent({
   name: 'ContactList',
@@ -29,21 +26,27 @@ export default defineComponent({
   },
   data() {
     return {
-      contacts: [] as Contact[],
+      contacts: [] as Contact[], 
     };
   },
   methods: {
     async fetchContacts() {
-      const response = await fetch('http://localhost:3000/contacts');
-      this.contacts = await response.json();
+      try {
+        const response = await apiClient.get('/contacts');
+        this.contacts = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar lista de contatos:', error);
+      }
     },
-    async deleteContact(id: number) {
-      await fetch(`http://localhost:3000/contacts/${id}`, {
-        method: 'DELETE',
-      });
-      this.fetchContacts();
+    async deleteContact(id: string) {
+      try {
+        await apiClient.delete(`/contacts/${id}`);
+        this.fetchContacts();
+      } catch (error) {
+        console.error('Erro ao deletar contato:', error);
+      }
     },
-    editContact(id: number) {
+    editContact(id: string) {
       this.$router.push(`/edit/${id}`);
     },
   },

@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
+import apiClient from '../axios';
 
 interface Contact {
   name: string;
@@ -35,18 +36,20 @@ export default defineComponent({
   },
   methods: {
     async fetchContact() {
-      const response = await fetch(`http://localhost:3000/contacts/${this.$route.params.id}`);
-      this.contact = await response.json();
+      try {
+        const response = await apiClient.get(`/contacts/${this.$route.params.id}`);
+        this.contact = response.data;
+      } catch (error) {
+        console.error('Erro ao buscar contato:', error);
+      }
     },
     async updateContact(contact: Contact) {
-      await fetch(`http://localhost:3000/contacts/${this.$route.params.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contact),
-      });
-      this.$router.push('/');
+      try {
+        await apiClient.put(`/contacts/${this.$route.params.id}`, contact);
+        this.$router.push('/');
+      } catch (error) {
+        console.error('Erro ao atualizar contato:', error);
+      }
     },
   },
   created() {
@@ -65,5 +68,3 @@ export default defineComponent({
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
-
-

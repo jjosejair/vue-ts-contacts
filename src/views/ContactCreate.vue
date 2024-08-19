@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
+import apiClient from '../axios';  // Importa a configuração do axios
 
 interface Contact {
   name: string;
@@ -35,14 +36,12 @@ export default defineComponent({
   },
   methods: {
     async createContact(contact: Contact) {
-      await fetch('http://localhost:3000/contacts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contact),
-      });
-      this.$router.push('/');
+      try {
+        await apiClient.post('/contacts', contact);
+        this.$router.push('/');
+      } catch (error) {
+        console.error('Erro ao criar contato:', error);
+      }
     },
   },
 });
@@ -50,19 +49,11 @@ export default defineComponent({
 
 <style scoped>
 .contact-create {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: 30px;
-  background-color: #f1f1f1;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 24px;
-  font-weight: bold;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
