@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos para a barra de navegação */
+
 .navbar {
   display: flex;
   justify-content: center;

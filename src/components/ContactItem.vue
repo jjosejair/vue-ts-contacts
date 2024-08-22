@@ -2,8 +2,8 @@
   <li class="contact-item">
     <router-link :to="`/contact/${contact.id}`" class="contact-link">{{ contact.name }}</router-link>
     <div class="actions">
-      <button @click="$emit('edit', contact.id)" class="edit-button">Editar</button>
-      <button @click="$emit('delete', contact.id)" class="delete-button">Deletar</button>
+      <button @click="$emit('edit')" class="edit-button">Editar</button>
+      <button @click="$emit('delete' )" class="delete-button">Deletar</button>
     </div>
   </li>
 </template>
