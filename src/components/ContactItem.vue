@@ -12,7 +12,7 @@
 import { defineComponent, PropType } from 'vue';
 
 interface Contact {
-  id: string;
+  id: number;
   name: string;
   phone: string;
   city: string;

@@ -16,58 +16,40 @@
 
 
 <script lang="ts">
-
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
+import { contactService } from '../services/ContactService';
 import ContactItem from '../components/ContactItem.vue';
-import axios from 'axios';
-
-interface Contact {
-  id:string ;
-  name: string;
-  phone: string;
-  city: string;
-}
+import { Contact } from '../interfaces/Contact';
 
 export default defineComponent({
   name: 'ContactList',
-  components: {
-    ContactItem,
-  },
+  components: { ContactItem },
   data() {
     return {
       contacts: [] as Contact[],
     };
   },
+  created() {
+    contactService.contacts$.subscribe((contacts) => {
+      this.contacts = contacts;
+    });
+  },
   methods: {
     async fetchContacts() {
-      const response = await axios.get('https://66bfa33c42533c403146b83b.mockapi.io/contacts/v1/contacts');
-      this.contacts = response.data;
+      await contactService.fetchContacts();
     },
-
-
-
     async deleteContact(id: number) {
-      await axios.delete(`https://66bfa33c42533c403146b83b.mockapi.io/contacts/v1/contacts/${id}`);
-      this.fetchContacts();
-
-
-
-
+      await contactService.deleteContact(id);
     },
-    editContact(id: number) {
+    editContact(id:  string) {
       this.$router.push(`/edit/${id}`);
     },
   },
-  created() {
+  mounted() {
     this.fetchContacts();
   },
 });
-
-
-
-
 </script>
-
 
 <style scoped>
 .contact-list {
