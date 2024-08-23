@@ -2,15 +2,21 @@
   <li class="contact-item">
     <router-link :to="`/contact/${contact.id}`" class="contact-link">{{ contact.name }}</router-link>
     <div class="actions">
-      <button @click="$emit('edit')" class="edit-button">Editar</button>
-      <button @click="$emit('delete' )" class="delete-button">Deletar</button>
+      <button @click="$emit('edit', contact.id)" class="edit-button">Editar</button>
+      <button @click="$emit('delete', contact.id)" class="delete-button">Deletar</button>
     </div>
   </li>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Contact } from '../interfaces/Contact';
+
+interface Contact {
+  id: string;
+  name: string;
+  phone: string;
+  city: string;
+}
 
 export default defineComponent({
   name: 'ContactItem',
@@ -23,9 +29,7 @@ export default defineComponent({
 });
 </script>
 
-
 <style scoped>
-/* Estilos específicos para um item de contato */
 .contact-item {
   display: flex;
   justify-content: space-between;
@@ -52,9 +56,16 @@ export default defineComponent({
   gap: 10px;
 }
 
+.edit-button, .delete-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
 .edit-button {
   background-color: #28a745;
-  color: white;
 }
 
 .edit-button:hover {
@@ -63,7 +74,6 @@ export default defineComponent({
 
 .delete-button {
   background-color: #dc3545;
-  color: white;
 }
 
 .delete-button:hover {

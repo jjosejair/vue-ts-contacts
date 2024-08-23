@@ -10,14 +10,23 @@
         @delete="deleteContact"
       />
     </ul>
+    
   </div>
 </template>
 
+
 <script lang="ts">
+
 import { defineComponent } from 'vue';
 import ContactItem from '../components/ContactItem.vue';
-import apiClient from '../axios';  
-import { Contact } from '../interfaces/Contact';
+import axios from 'axios';
+
+interface Contact {
+  id:string ;
+  name: string;
+  phone: string;
+  city: string;
+}
 
 export default defineComponent({
   name: 'ContactList',
@@ -26,27 +35,26 @@ export default defineComponent({
   },
   data() {
     return {
-      contacts: [] as Contact[], 
+      contacts: [] as Contact[],
     };
   },
   methods: {
     async fetchContacts() {
-      try {
-        const response = await apiClient.get('/contacts');
-        this.contacts = response.data;
-      } catch (error) {
-        console.error('Erro ao buscar lista de contatos:', error);
-      }
+      const response = await axios.get('https://66bfa33c42533c403146b83b.mockapi.io/contacts/v1/contacts');
+      this.contacts = response.data;
     },
-    async deleteContact(id: string) {
-      try {
-        await apiClient.delete(`/contacts/${id}`);
-        this.fetchContacts();
-      } catch (error) {
-        console.error('Erro ao deletar contato:', error);
-      }
+
+
+
+    async deleteContact(id: number) {
+      await axios.delete(`https://66bfa33c42533c403146b83b.mockapi.io/contacts/v1/contacts/${id}`);
+      this.fetchContacts();
+
+
+
+
     },
-    editContact(id: string) {
+    editContact(id: number) {
       this.$router.push(`/edit/${id}`);
     },
   },
@@ -54,7 +62,12 @@ export default defineComponent({
     this.fetchContacts();
   },
 });
+
+
+
+
 </script>
+
 
 <style scoped>
 .contact-list {
@@ -64,5 +77,15 @@ export default defineComponent({
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+p {
+  text-align: center;
+  color: #777;
 }
 </style>

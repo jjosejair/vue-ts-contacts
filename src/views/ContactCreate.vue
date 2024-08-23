@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
-import apiClient from '../axios';  // Importa a configuração do axios
+import apiClient from '../axios'; // Importar o axios configurado
 
 interface Contact {
   name: string;
@@ -36,12 +36,8 @@ export default defineComponent({
   },
   methods: {
     async createContact(contact: Contact) {
-      try {
-        await apiClient.post('/contacts', contact);
-        this.$router.push('/');
-      } catch (error) {
-        console.error('Erro ao criar contato:', error);
-      }
+      await apiClient.post('/contacts', contact); // Usar axios
+      this.$router.push('/');
     },
   },
 });

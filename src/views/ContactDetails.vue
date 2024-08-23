@@ -12,10 +12,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import apiClient from '../axios'; 
+import apiClient from '../axios'; // Importar o axios configurado
 
 interface Contact {
-  id: string;
+  id: number;
   name: string;
   phone: string;
   city: string;
@@ -30,12 +30,8 @@ export default defineComponent({
   },
   methods: {
     async fetchContact() {
-      try {
-        const response = await apiClient.get(`/contacts/${this.$route.params.id}`);
-        this.contact = response.data;
-      } catch (error) {
-        console.error('Erro ao buscar detalhes do contato:', error);
-      }
+      const response = await apiClient.get(`/contacts/${this.$route.params.id}`); // Usar axios
+      this.contact = response.data;
     },
   },
   created() {
