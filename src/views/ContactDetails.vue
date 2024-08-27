@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import apiClient from '../axios'; // Importar o axios configurado
+import apiClient from '../axios'; 
 
 interface Contact {
   id: number;

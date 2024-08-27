@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
-import apiClient from '../axios'; // Importar o axios configurado
+import apiClient from '../axios'; 
 
 interface Contact {
   name: string;
@@ -36,11 +36,11 @@ export default defineComponent({
   },
   methods: {
     async fetchContact() {
-      const response = await apiClient.get(`/contacts/${this.$route.params.id}`); // Usar axios
+      const response = await apiClient.get(`/contacts/${this.$route.params.id}`); 
       this.contact = response.data;
     },
     async updateContact(contact: Contact) {
-      await apiClient.put(`/contacts/${this.$route.params.id}`, contact); // Usar axios
+      await apiClient.put(`/contacts/${this.$route.params.id}`, contact); 
       this.$router.push('/');
     },
   },
