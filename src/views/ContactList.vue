@@ -19,7 +19,7 @@
 import { defineComponent, onMounted } from 'vue';
 import { contactService } from '../services/ContactService';
 import ContactItem from '../components/ContactItem.vue';
-import { Contact } from '../interfaces/Contact';
+import { Contact } from '../models/Contact'; 
 
 export default defineComponent({
   name: 'ContactList',
@@ -41,7 +41,7 @@ export default defineComponent({
     async deleteContact(id: number) {
       await contactService.deleteContact(id);
     },
-    editContact(id:  string) {
+    editContact(id: number) {
       this.$router.push(`/edit/${id}`);
     },
   },
@@ -49,6 +49,8 @@ export default defineComponent({
     this.fetchContacts();
   },
 });
+
+
 </script>
 
 <style scoped>

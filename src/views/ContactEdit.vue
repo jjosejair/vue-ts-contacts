@@ -12,35 +12,24 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
-import apiClient from '../axios'; 
-
-interface Contact {
-  name: string;
-  phone: string;
-  city: string;
-}
+import apiClient from '../axios';
+import { Contact } from '../models/Contact';
 
 export default defineComponent({
   name: 'ContactEdit',
-  components: {
-    ContactForm,
-  },
+  components: { ContactForm },
   data() {
     return {
-      contact: {
-        name: '',
-        phone: '',
-        city: '',
-      } as Contact,
+      contact: new Contact(), 
     };
   },
   methods: {
     async fetchContact() {
-      const response = await apiClient.get(`/contacts/${this.$route.params.id}`); 
+      const response = await apiClient.get(`/contacts/${this.$route.params.id}`);
       this.contact = response.data;
     },
     async updateContact(contact: Contact) {
-      await apiClient.put(`/contacts/${this.$route.params.id}`, contact); 
+      await apiClient.put(`/contacts/${this.$route.params.id}`, contact);
       this.$router.push('/');
     },
   },
@@ -48,6 +37,7 @@ export default defineComponent({
     this.fetchContact();
   },
 });
+
 </script>
 
 <style scoped>

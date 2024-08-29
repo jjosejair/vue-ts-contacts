@@ -20,32 +20,29 @@
   </template>
   
   <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  
-  interface Contact {
-    name: string;
-    phone: string;
-    city: string;
-  }
-  
-  export default defineComponent({
-    name: 'ContactForm',
-    props: {
-      contact: {
-        type: Object as PropType<Contact>,
-        required: true,
-      },
-      buttonText: {
-        type: String,
-        required: true,
-      },
+ import { defineComponent, PropType } from 'vue';
+import { Contact } from '../models/Contact'; 
+
+export default defineComponent({
+  name: 'ContactForm',
+  props: {
+    contact: {
+      type: Object as PropType<Contact>,
+      required: true,
     },
-    methods: {
-      handleSubmit() {
-        this.$emit('submit', this.contact);
-      },
+    buttonText: {
+      type: String,
+      required: true,
     },
-  });
+  },
+  methods: {
+    handleSubmit() {
+      this.$emit('submit', this.contact as Contact);
+    },
+  },
+});
+
+
   </script>
   
   <style scoped>

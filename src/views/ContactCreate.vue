@@ -13,18 +13,14 @@
 import { defineComponent } from 'vue';
 import ContactForm from '../components/ContactForm.vue';
 import { contactService } from '../services/ContactService';
-import { Contact } from '../interfaces/Contact';
+import { Contact } from '../models/Contact';
 
 export default defineComponent({
   name: 'ContactCreate',
   components: { ContactForm },
   data() {
     return {
-      contact: {
-        name: '',
-        phone: '',
-        city: '',
-      } as Contact,
+      contact: new Contact(), 
     };
   },
   methods: {
@@ -34,6 +30,7 @@ export default defineComponent({
     },
   },
 });
+
 </script>
 <style scoped>
 .contact-create {

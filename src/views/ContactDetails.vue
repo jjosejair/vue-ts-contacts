@@ -12,14 +12,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import apiClient from '../axios'; 
-
-interface Contact {
-  id: number;
-  name: string;
-  phone: string;
-  city: string;
-}
+import apiClient from '../axios';
+import { Contact } from '../models/Contact'; 
 
 export default defineComponent({
   name: 'ContactDetails',
@@ -30,7 +24,7 @@ export default defineComponent({
   },
   methods: {
     async fetchContact() {
-      const response = await apiClient.get(`/contacts/${this.$route.params.id}`); // Usar axios
+      const response = await apiClient.get(`/contacts/${this.$route.params.id}`);
       this.contact = response.data;
     },
   },

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { Contact } from '../interfaces/Contact';
+import { Contact } from '../models/Contact'; 
 import apiClient from '../axios';
 
 class ContactService {
@@ -18,7 +18,7 @@ class ContactService {
 
   async updateContact(id: number, updatedContact: Contact) {
     const response = await apiClient.put<Contact>(`/contacts/${id}`, updatedContact);
-    const contacts = this.contactsSubject.value.map(contact => 
+    const contacts = this.contactsSubject.value.map(contact =>
       contact.id === id ? response.data : contact
     );
     this.contactsSubject.next(contacts);

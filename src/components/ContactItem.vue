@@ -10,13 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
-interface Contact {
-  id: number;
-  name: string;
-  phone: string;
-  city: string;
-}
+import { Contact } from '../models/Contact'; 
 
 export default defineComponent({
   name: 'ContactItem',
@@ -27,6 +21,8 @@ export default defineComponent({
     },
   },
 });
+
+
 </script>
 
 <style scoped>
