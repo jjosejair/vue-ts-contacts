@@ -1,12 +1,12 @@
 <template>
-  <div class="contact-details">
-    <h1>Detalhes</h1>
-    <div v-if="contact" class="contact-info">
+  <div class="max-w-md mx-auto p-6 mt-10 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Detalhes</h1>
+    <div v-if="contact" class="mb-4">
       <p><strong>Nome:</strong> {{ contact.name }}</p>
       <p><strong>Telefone:</strong> {{ contact.phone }}</p>
       <p><strong>Cidade:</strong> {{ contact.city }}</p>
     </div>
-    <router-link to="/" class="back-link">Voltar à Lista</router-link>
+    <router-link to="/" class="block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Voltar à Lista</router-link>
   </div>
 </template>
 
@@ -33,30 +33,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.contact-details {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.back-link {
-  display: inline-block;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.back-link:hover {
-  background-color: #0056b3;
-}
-</style>

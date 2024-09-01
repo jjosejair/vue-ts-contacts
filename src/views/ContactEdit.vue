@@ -1,6 +1,6 @@
 <template>
-  <div class="contact-edit">
-    <h1>Editar contato</h1>
+  <div class="max-w-md mx-auto p-6 mt-10 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Editar Contato</h1>
     <ContactForm
       :contact="contact"
       buttonText="Salvar"
@@ -37,16 +37,4 @@ export default defineComponent({
     this.fetchContact();
   },
 });
-
 </script>
-
-<style scoped>
-.contact-edit {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style>

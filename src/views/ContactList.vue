@@ -1,6 +1,6 @@
 <template>
-  <div class="contact-list">
-    <h1>Lista de Contatos</h1>
+  <div class="max-w-2xl mx-auto p-6 mt-10 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Lista de Contatos</h1>
     <ul>
       <ContactItem
         v-for="contact in contacts"
@@ -10,13 +10,11 @@
         @delete="deleteContact"
       />
     </ul>
-    
   </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import { contactService } from '../services/ContactService';
 import ContactItem from '../components/ContactItem.vue';
 import { Contact } from '../models/Contact'; 
@@ -49,27 +47,4 @@ export default defineComponent({
     this.fetchContacts();
   },
 });
-
-
 </script>
-
-<style scoped>
-.contact-list {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-p {
-  text-align: center;
-  color: #777;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="contact-create">
-    <h1>Criar Novo Contato</h1>
+  <div class="max-w-md mx-auto p-6 mt-10 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Criar Novo Contato</h1>
     <ContactForm
       :contact="contact"
       buttonText="Criar"
@@ -30,15 +30,4 @@ export default defineComponent({
     },
   },
 });
-
 </script>
-<style scoped>
-.contact-create {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style>
