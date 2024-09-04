@@ -23,9 +23,10 @@ export default defineComponent({
     };
   },
   methods: {
-    async fetchContact() {
-      const response = await apiClient.get(`/contacts/${this.$route.params.id}`);
-      this.contact = response.data;
+    fetchContact() {
+      apiClient.get(`/contacts/${this.$route.params.id}`).then((response) => {
+        this.contact = response.data;
+      });
     },
   },
   created() {

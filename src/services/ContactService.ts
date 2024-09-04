@@ -6,28 +6,32 @@ class ContactService {
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   contacts$ = this.contactsSubject.asObservable();
 
-  async fetchContacts() {
-    const response = await apiClient.get<Contact[]>('/contacts');
-    this.contactsSubject.next(response.data);
+  fetchContacts(): Promise<void> {
+    return apiClient.get<Contact[]>('/contacts').then((response) => {
+      this.contactsSubject.next(response.data);
+    });
   }
 
-  async createContact(contact: Contact) {
-    const response = await apiClient.post<Contact>('/contacts', contact);
-    this.contactsSubject.next([...this.contactsSubject.value, response.data]);
+  createContact(contact: Contact): Promise<void> {
+    return apiClient.post<Contact>('/contacts', contact).then((response) => {
+      this.contactsSubject.next([...this.contactsSubject.value, response.data]);
+    });
   }
 
-  async updateContact(id: number, updatedContact: Contact) {
-    const response = await apiClient.put<Contact>(`/contacts/${id}`, updatedContact);
-    const contacts = this.contactsSubject.value.map(contact =>
-      contact.id === id ? response.data : contact
-    );
-    this.contactsSubject.next(contacts);
+  updateContact(id: number, updatedContact: Contact): Promise<void> {
+    return apiClient.put<Contact>(`/contacts/${id}`, updatedContact).then((response) => {
+      const contacts = this.contactsSubject.value.map(contact =>
+        contact.id === id ? response.data : contact
+      );
+      this.contactsSubject.next(contacts);
+    });
   }
 
-  async deleteContact(id: number) {
-    await apiClient.delete(`/contacts/${id}`);
-    const contacts = this.contactsSubject.value.filter(contact => contact.id !== id);
-    this.contactsSubject.next(contacts);
+  deleteContact(id: number): Promise<void> {
+    return apiClient.delete(`/contacts/${id}`).then(() => {
+      const contacts = this.contactsSubject.value.filter(contact => contact.id !== id);
+      this.contactsSubject.next(contacts);
+    });
   }
 }
 

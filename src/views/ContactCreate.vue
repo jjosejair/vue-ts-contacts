@@ -20,13 +20,14 @@ export default defineComponent({
   components: { ContactForm },
   data() {
     return {
-      contact: new Contact(), 
+      contact: new Contact(),
     };
   },
   methods: {
-    async createContact(contact: Contact) {
-      await contactService.createContact(contact);
-      this.$router.push('/');
+    createContact(contact: Contact) {
+      contactService.createContact(contact).then(() => {
+        this.$router.push('/');
+      });
     },
   },
 });

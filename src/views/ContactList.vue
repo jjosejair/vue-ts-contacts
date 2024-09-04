@@ -17,7 +17,7 @@
 import { defineComponent } from 'vue';
 import { contactService } from '../services/ContactService';
 import ContactItem from '../components/ContactItem.vue';
-import { Contact } from '../models/Contact'; 
+import { Contact } from '../models/Contact';
 
 export default defineComponent({
   name: 'ContactList',
@@ -31,20 +31,15 @@ export default defineComponent({
     contactService.contacts$.subscribe((contacts) => {
       this.contacts = contacts;
     });
+    contactService.fetchContacts();
   },
   methods: {
-    async fetchContacts() {
-      await contactService.fetchContacts();
-    },
-    async deleteContact(id: number) {
-      await contactService.deleteContact(id);
+    deleteContact(id: number) {
+      contactService.deleteContact(id);
     },
     editContact(id: number) {
       this.$router.push(`/edit/${id}`);
     },
-  },
-  mounted() {
-    this.fetchContacts();
   },
 });
 </script>
