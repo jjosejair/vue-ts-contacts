@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ContactList from '../views/ContactList.vue';
-import ContactDetails from '../views/ContactDetails.vue';
-import ContactEdit from '../views/ContactEdit.vue';
-import ContactCreate from '../views/ContactCreate.vue';
+import ContactList from '../views/contact-list.vue';
+import ContactDetails from '../views/contact-create.vue';
+import ContactEdit from '../views/contact-edit.vue';
+import ContactCreate from '../views/contact-create.vue';
 
 const routes = [
   {
@@ -12,7 +12,7 @@ const routes = [
   },
   {
     path: '/contact/:id',
-    name: 'ContactDetails',
+    name: 'contact-details',
     component: ContactDetails,
   },
   {
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/create',
-    name: 'ContactCreate',
+    name: 'contac-tcreate',
     component: ContactCreate,
   },
 ];

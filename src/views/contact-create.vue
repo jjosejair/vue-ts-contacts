@@ -16,7 +16,7 @@ import { contactService } from '../services/ContactService';
 import { Contact } from '../models/Contact';
 
 export default defineComponent({
-  name: 'ContactCreate',
+  name: 'contact-create',
   components: { ContactForm },
   data() {
     return {
