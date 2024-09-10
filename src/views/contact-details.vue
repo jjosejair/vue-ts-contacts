@@ -16,7 +16,7 @@ import apiClient from '../axios';
 import { Contact } from '../models/Contact'; 
 
 export default defineComponent({
-  name: 'ContactDetails',
+  name: 'Contact-details',
   data() {
     return {
       contact: null as Contact | null,

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ContactList from '../views/contact-list.vue';
-import ContactDetails from '../views/contact-create.vue';
+import ContactDetails from '../views/contact-details.vue';
 import ContactEdit from '../views/contact-edit.vue';
 import ContactCreate from '../views/contact-create.vue';
 
