@@ -6,14 +6,15 @@
       <p><strong>Telefone:</strong> {{ contact.phone }}</p>
       <p><strong>Cidade:</strong> {{ contact.city }}</p>
     </div>
-    <router-link to="/" class="block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Voltar à Lista</router-link>
+    <router-link to="/" class="block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Voltar à
+      Lista</router-link>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import apiClient from '../axios';
-import { Contact } from '../models/Contact'; 
+import { Contact } from '../models/contact.model';
 
 export default defineComponent({
   name: 'Contact-details',

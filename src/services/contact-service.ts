@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { Contact } from '../models/Contact'; 
+import { Contact } from '../models/contact.model';
 import apiClient from '../axios';
 
 class ContactService {
